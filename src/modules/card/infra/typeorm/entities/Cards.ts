@@ -26,6 +26,9 @@ class Cards {
   @Column()
   price: number;
 
+  @Column()
+  image: string;
+
   @CreateDateColumn()
   created_at: Date;
 

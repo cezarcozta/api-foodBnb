@@ -1,5 +1,10 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
 import { getRepository, Repository, Between } from 'typeorm';
+import path from 'path';
+import fs from 'fs';
+
+import uploadConfig from '@config/upload';
 
 import ICardsRepository from '@modules/card/repositories/ICardsRepository';
 import ICreateCardDTO from '@modules/card/dtos/ICreateCardDTO';
@@ -9,6 +14,7 @@ import IFindCardByPriceRangeDTO from '@modules/card/dtos/IFindCardByPriceRangeDT
 import IFindCardByTypeAndPriceRangeDTO from '@modules/card/dtos/IFindCardByTypeAndPriceRangeDTO';
 
 import Cards from '../entities/Cards';
+import cardsRouter from '../../http/routes/card.routes';
 
 class CardsRepository implements ICardsRepository {
   private ormRepository: Repository<Cards>;
@@ -173,6 +179,39 @@ class CardsRepository implements ICardsRepository {
       const updateCard = await this.ormRepository.save(card);
 
       return updateCard;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  public async updateImageCard(
+    card: string,
+    imageFileName: string,
+  ): Promise<void> {
+    try {
+      const updateImageCard = await this.ormRepository.findOne(card);
+
+      if (!updateImageCard) {
+        throw new Error('Card not found!');
+      }
+
+      if (updateImageCard.image) {
+        // deleter avatar existente
+        const cardImageFilePath = path.join(
+          uploadConfig.directory,
+          updateImageCard.image,
+        );
+
+        const cardImageFilExists = await fs.promises.stat(cardImageFilePath);
+
+        if (cardImageFilExists) {
+          await fs.promises.unlink(cardImageFilePath);
+        }
+      }
+
+      updateImageCard.image = imageFileName;
+
+      await this.ormRepository.save(updateImageCard);
     } catch (error) {
       throw new Error(error.message);
     }

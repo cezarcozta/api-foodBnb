@@ -31,5 +31,7 @@ export default interface ICardsRepository {
 
   updateCard(card: Cards): Promise<Cards>;
 
+  updateImageCard(card: string, imageFileName: string): Promise<void>;
+
   findCardById(id: string): Promise<Cards | undefined>;
 }

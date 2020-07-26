@@ -9,8 +9,25 @@ import ListCardsByTypeService from '@modules/card/services/ListCardsByTypeServic
 import ListCardsByPriceRangeService from '@modules/card/services/ListCardsByPriceRangeService';
 import ListCardsByTypeAndPriceRangeService from '@modules/card/services/ListCardsByTypeAndPriceRangeService';
 import ListCardsService from '@modules/card/services/ListCardsService';
+import UpdateCardImageService from '@modules/card/services/UpdateCardImageService';
 
 export default class CardsController {
+  public async upload(request: Request, response: Response): Promise<Response> {
+    try {
+      const { card_id } = request.body;
+
+      const imageFileName = request.file.filename;
+
+      const updateCardImage = container.resolve(UpdateCardImageService);
+
+      await updateCardImage.execute({ card_id, imageFileName });
+
+      return response.status(204).json();
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     try {
       const { name, type, price } = request.body;
