@@ -12,7 +12,6 @@ class ListCardsService {
   public async execute(): Promise<Cards[]> {
     try {
       const cards = await this.cardsRepository.listAllCards();
-      console.log('service: ', cards);
       return cards;
     } catch (error) {
       throw new Error(error.message);

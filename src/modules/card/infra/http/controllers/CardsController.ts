@@ -50,9 +50,6 @@ export default class CardsController {
     try {
       const { type, price, option } = request.query;
 
-      // if (type && price && option === undefined) {
-      // }
-
       if (type !== undefined && price === undefined) {
         const listCards = container.resolve(ListCardsByTypeService);
 

@@ -14,7 +14,6 @@ import IFindCardByPriceRangeDTO from '@modules/card/dtos/IFindCardByPriceRangeDT
 import IFindCardByTypeAndPriceRangeDTO from '@modules/card/dtos/IFindCardByTypeAndPriceRangeDTO';
 
 import Cards from '../entities/Cards';
-import cardsRouter from '../../http/routes/card.routes';
 
 class CardsRepository implements ICardsRepository {
   private ormRepository: Repository<Cards>;
