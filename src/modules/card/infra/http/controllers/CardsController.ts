@@ -30,7 +30,9 @@ export default class CardsController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { name, image, type, price } = request.body;
+      const { name, type, price } = request.body;
+
+      const image = request.file.filename;
 
       const createCard = container.resolve(CreateCardService);
 
