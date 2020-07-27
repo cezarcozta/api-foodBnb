@@ -10,6 +10,8 @@ import {
 
 import FoodType from '@modules/foodType/infra/typeorm/entities/FoodType';
 
+import { Expose } from 'class-transformer';
+
 @Entity('cards')
 class Cards {
   @PrimaryGeneratedColumn('uuid')
@@ -33,6 +35,15 @@ class Cards {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'img_url' })
+  getImageUrl(): string | null {
+    if (!this.image) {
+      return null;
+    }
+
+    return `${process.env.APP_API_URL}/files/${this.image}`;
+  }
 }
 
 export default Cards;

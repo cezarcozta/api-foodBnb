@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import CreateCardService from '@modules/card/services/CreateCardService';
 import UpdateCardService from '@modules/card/services/UpdateCardService';
@@ -58,7 +59,7 @@ export default class CardsController {
           type: String(type),
         });
 
-        return response.json(allCardsByFoodType);
+        return response.json(classToClass(allCardsByFoodType));
       }
 
       if (type === undefined && price !== undefined) {
@@ -74,7 +75,7 @@ export default class CardsController {
           maxPrice: parsedPrice[1],
         });
 
-        return response.json(allCardsByPriceRange);
+        return response.json(classToClass(allCardsByPriceRange));
       }
 
       if (type !== undefined && price !== undefined) {
@@ -93,14 +94,14 @@ export default class CardsController {
           maxPrice: parsedPrice[1],
         });
 
-        return response.json(allCardsByTypeAndPriceRange);
+        return response.json(classToClass(allCardsByTypeAndPriceRange));
       }
 
       const listAllCards = container.resolve(ListCardsService);
 
       const allCards = await listAllCards.execute();
 
-      return response.json(allCards);
+      return response.json(classToClass(allCards));
     } catch (error) {
       throw new Error(error.message);
     }
@@ -131,7 +132,7 @@ export default class CardsController {
 
       const updatedCard = await updateCard.execute(card);
 
-      return response.json(updatedCard);
+      return response.json(classToClass(updatedCard));
     } catch (error) {
       throw new Error(error.message);
     }
