@@ -32,13 +32,10 @@ export default class CardsController {
     try {
       const { name, type, price } = request.body;
 
-      const image = request.file.filename;
-
       const createCard = container.resolve(CreateCardService);
 
       const card = await createCard.execute({
         name,
-        image,
         type,
         price,
       });

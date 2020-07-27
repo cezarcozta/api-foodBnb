@@ -5,7 +5,7 @@ import IFindCardByPriceRangeDTO from '../dtos/IFindCardByPriceRangeDTO';
 import IFindCardByTypeAndPriceRangeDTO from '../dtos/IFindCardByTypeAndPriceRangeDTO';
 
 export default interface ICardsRepository {
-  createAndSave(data: ICreateCardDTO): Promise<Cards>;
+  createAndSave({ name, type, price }: ICreateCardDTO): Promise<Cards>;
 
   listAllCards(): Promise<Cards[]>;
 

@@ -24,12 +24,11 @@ class CardsRepository implements ICardsRepository {
 
   public async createAndSave({
     name,
-    image,
     type,
     price,
   }: ICreateCardDTO): Promise<Cards> {
     try {
-      const card = this.ormRepository.create({ name, image, price, type });
+      const card = this.ormRepository.create({ name, price, type });
 
       await this.ormRepository.save(card);
 
