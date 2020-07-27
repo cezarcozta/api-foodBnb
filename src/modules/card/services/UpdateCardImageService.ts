@@ -1,6 +1,5 @@
 import { injectable, inject } from 'tsyringe';
 import ICardsRepository from '../repositories/ICardsRepository';
-import Cards from '../infra/typeorm/entities/Cards';
 
 interface IRequest {
   card_id: string;

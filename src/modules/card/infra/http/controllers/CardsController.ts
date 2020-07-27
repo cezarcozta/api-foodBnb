@@ -30,12 +30,13 @@ export default class CardsController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { name, type, price } = request.body;
+      const { name, image, type, price } = request.body;
 
       const createCard = container.resolve(CreateCardService);
 
       const card = await createCard.execute({
         name,
+        image,
         type,
         price,
       });
@@ -123,9 +124,9 @@ export default class CardsController {
   public async update(request: Request, response: Response): Promise<Response> {
     try {
       const { id } = request.params;
-      const { name, type, price, ...rest } = request.body;
+      const { name, image, type, price, ...rest } = request.body;
 
-      const card = { id, name, type, price, ...rest };
+      const card = { id, name, image, type, price, ...rest };
 
       const updateCard = container.resolve(UpdateCardService);
 

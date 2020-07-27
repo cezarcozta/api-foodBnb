@@ -9,7 +9,13 @@ class UpdateCardService {
     private cardsRepository: ICardsRepository,
   ) {}
 
-  public async execute({ id, name, type, price }: Cards): Promise<Cards> {
+  public async execute({
+    id,
+    name,
+    image,
+    type,
+    price,
+  }: Cards): Promise<Cards> {
     try {
       const updateCard = await this.cardsRepository.findCardById(id);
 
@@ -18,6 +24,7 @@ class UpdateCardService {
       }
 
       updateCard.name = name;
+      updateCard.image = image;
       updateCard.type = type;
       updateCard.price = price;
 
