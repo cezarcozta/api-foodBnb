@@ -42,7 +42,6 @@ export default class CardsController {
         type,
         price,
       });
-
       return response.json(card);
     } catch (error) {
       throw new Error(error.message);
