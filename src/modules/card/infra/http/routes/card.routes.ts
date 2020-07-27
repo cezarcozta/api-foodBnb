@@ -10,7 +10,7 @@ const cardsController = new CardsController();
 
 const upload = multer(uploadConfig);
 
-cardsRouter.post('/', cardsController.create);
+cardsRouter.post('/', upload.single('image'), cardsController.create);
 cardsRouter.get('/', cardsController.index);
 cardsRouter.put('/:id', cardsController.update);
 cardsRouter.patch('/image', upload.single('image'), cardsController.upload);
