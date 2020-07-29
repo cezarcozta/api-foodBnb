@@ -42,7 +42,7 @@ export default class CardsController {
         type,
         price,
       });
-      return response.json(card);
+      return response.json(classToClass(card));
     } catch (error) {
       throw new Error(error.message);
     }
