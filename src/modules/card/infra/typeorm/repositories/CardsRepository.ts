@@ -185,9 +185,17 @@ class CardsRepository implements ICardsRepository {
 
   public async updateCard(card: Cards): Promise<Cards> {
     try {
-      const updateCard = await this.ormRepository.save(card);
+      const imageFilePath = path.join(uploadConfig.directory, card.image);
 
-      return updateCard;
+      const cardImageFilExists = await fs.promises.stat(imageFilePath);
+
+      if (cardImageFilExists) {
+        await fs.promises.unlink(imageFilePath);
+      }
+
+      const updatedCard = await this.ormRepository.save(card);
+
+      return updatedCard;
     } catch (error) {
       throw new Error(error.message);
     }

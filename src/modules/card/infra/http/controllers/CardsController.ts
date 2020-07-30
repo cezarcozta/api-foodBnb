@@ -125,7 +125,8 @@ export default class CardsController {
   public async update(request: Request, response: Response): Promise<Response> {
     try {
       const { id } = request.params;
-      const { name, image, type, price, ...rest } = request.body;
+      const { name, type, price, ...rest } = request.body;
+      const image = request.file.filename;
 
       const card = { id, name, image, type, price, ...rest };
 

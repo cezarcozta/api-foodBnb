@@ -20,7 +20,7 @@ class Cards {
   @Column()
   name: string;
 
-  @ManyToOne(() => FoodType, { eager: true })
+  @ManyToOne(() => FoodType, { eager: true, cascade: true })
   @JoinColumn({ name: 'foodType_id' })
   type: FoodType;
 
